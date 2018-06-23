@@ -44,10 +44,10 @@ void sema_signal(sema_t *sema)
 
 void *T1_entry(void *arg)
 {
-    sleep(2);  // 睡眠2秒，不准删除此条语句，否则答题无效
-    puts("T1");
-    sema_signal(&t1_2_ready);
-    sema_signal(&t1_3_ready);
+	sleep(2);  // 睡眠2秒，不准删除此条语句，否则答题无效
+	puts("T1");
+	sema_signal(&t1_2_ready);
+	sema_signal(&t1_3_ready);
 
 }
 
@@ -55,24 +55,24 @@ void *T2_entry(void *arg)
 {
 	sema_wait(&t1_2_ready);
 	sleep(1);  // 睡眠1秒，不准删除此条语句，否则答题无效
-    puts("T2");
-    sema_signal(&t2_ready);
+	puts("T2");
+	sema_signal(&t2_ready);
 }
 
 void *T3_entry(void *arg)
 {
 	sema_wait(&t1_3_ready);
 	sleep(1);  // 睡眠1秒，不准删除此条语句，否则答题无效
-    puts("T3");
-    sema_signal(&t3_ready);
+	puts("T3");
+	sema_signal(&t3_ready);
 
 }
 
 void *T4_entry(void *arg)
 {
-    sema_wait(&t2_ready);
+	sema_wait(&t2_ready);
 	sema_wait(&t3_ready);
-    puts("T4");
+	puts("T4");
 }
 
 int main()
