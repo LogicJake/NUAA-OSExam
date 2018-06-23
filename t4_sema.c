@@ -28,9 +28,9 @@ void sema_init(sema_t *sema, int value)
 void sema_wait(sema_t *sema)
 {
 	pthread_mutex_lock(&sema->mutex);
-	sema->value--;
-	while (sema->value < 0)
-		pthread_cond_wait(&sema->cond, &sema->mutex);
+	while (sema->value <= 0)
+        	pthread_cond_wait(&sema->cond, &sema->mutex);
+    	sema->value--;
 	pthread_mutex_unlock(&sema->mutex);
 }
 
